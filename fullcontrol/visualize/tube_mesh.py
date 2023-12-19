@@ -46,12 +46,12 @@ class MeshExporter:
         mode = 'w' + 'b'*binary
         if combined_file or num_bodies == 1:
             if num_bodies > 1:
-                print(
-                    'WARNING! Multi-object STL file - may not work in some softwares, nor with binary stl format.')
+                print("WARNING! Multi-object STL file - may not work in some softwares, nor with stl_type='binary'")
 
             # with self.valid_path(path, overwrite).open(mode) as out:
-            file_path = path.with_stem(
-                f'{path.stem}__{datetime.today().strftime("%d-%m-%Y__%H-%M-%S")}')
+            # file_path = path.with_stem(
+            #     f'{path.stem}__{datetime.today().strftime("%d-%m-%Y__%H-%M-%S")}')
+            file_path = path
             with file_path.open(mode) as out:
                 write_header(out)
                 for index, body in enumerate(self._bodies):
@@ -64,8 +64,9 @@ class MeshExporter:
         else:
             for index, body in enumerate(self._bodies):
                 # file_path = self.valid_path(path.with_stem(f'{path.stem}_{index:>0{digits}}'),overwrite)
-                file_path = path.with_stem(
-                    f'{path.stem}_{index:>0{digits}}__{datetime.today().strftime("%d-%m-%Y__%H-%M-%S")}')
+                # file_path = path.with_stem(
+                #     f'{path.stem}_{index:>0{digits}}__{datetime.today().strftime("%d-%m-%Y__%H-%M-%S")}')
+                file_path = path
                 with file_path.open(mode) as out:
                     identifier = 0 if binary else name
                     write_header(out)
